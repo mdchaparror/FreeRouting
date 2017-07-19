@@ -76,3 +76,44 @@ Here are some instructions how to run the Freerouting project in the NetBeans ID
 
 For optional parameters of the Freerouting outfile check the usage of the variable p_args in the source file gui/MainApplication.java.
 
+Compile Without netbeans
+=========================
+1 Prerequisites 
+
+jh.jar and netx.jar must be available on your system before building
+FreeRouting. To do this on a Debian-like system (especaially
+Ubuntu) javahelp2 and icedtea-netx-common must be installed.
+
+
+CODE: SELECT ALL
+
+  apt-get install javahelp2 icedtea-netx-common
+
+
+Check if both jar files are at the correct position:
+- /usr/share/java/jh.jar
+- /usr/share/icedtea-web/netx.jar
+If they are not, you must search them and adapt the class path in
+the script snipped below.
+
+2 Compile FreeRouting: 
+
+
+If not already happen download FreeRouting form
+[http://www.freerouting.net/fen/download/file.php?id=145] and save it
+to say ~/tmp. Unzip it and copy and paste this snipped in to your
+bash propmt to let it compile and create the java archive.
+
+CODE: SELECT ALL
+
+     cd sources
+     javac  -classpath /usr/share/java/jh.jar:/usr/share/icedtea-web/netx.jar  `find -type f -name "*.java"`
+     jar cfe fr.jar gui.MainApplication `find -type f \( -name "*.class" -o -name "*.properties" \)`
+
+
+3 Running: 
+
+
+CODE: SELECT ALL
+  java -jar fr.jar -de $PATH_TO_YOUR_PROJECT/yourDsnFile.dsn
+
